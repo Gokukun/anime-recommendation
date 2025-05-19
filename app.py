@@ -2,14 +2,13 @@ import streamlit as st
 import joblib
 import requests
 
-# Load data
+
 anime = joblib.load("anime.joblib")
 similarity = joblib.load("similarity.joblib")
 
-# Set page config
 st.set_page_config(page_title="Anime Recommender", page_icon="🇮🇳", layout="wide")
 
-# Custom CSS for styling
+
 st.markdown("""
     <style>
     .main {
@@ -46,10 +45,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Title
+
 st.title("🎌 Anime Recommendation System 🎌")
 
-# Function to get anime details from Jikan API
+
 def fetch_anime_info(anime_name):
     try:
         url = f"https://api.jikan.moe/v4/anime?q={anime_name}&limit=1"
@@ -85,11 +84,11 @@ def recommend(anime_name):
     
     return recommendations
 
-# Anime selection
+
 st.markdown("### 🎥 Choose an anime to get similar recommendations:")
 selected_anime = st.selectbox("", anime['name'].str.title().sort_values().unique())
 
-# Recommend button
+
 if st.button("✨ Recommend"):
     st.subheader("🔮 Recommended Anime:")
     recommended_names = recommend(selected_anime)
@@ -110,7 +109,6 @@ if st.button("✨ Recommend"):
                     st.write(info["synopsis"])
                 st.markdown("</div>", unsafe_allow_html=True)
 
-# Footer
 st.markdown("""
     <div class="footer">
         🇮🇳 Made by Meet ❤️ Love for Anime

@@ -9,27 +9,65 @@ similarity = joblib.load("similarity.joblib")
 # Set page config
 st.set_page_config(page_title="Anime Recommender", page_icon="🇮🇳", layout="wide")
 
-# Custom CSS for styling
+# Meta tag for mobile responsiveness
+st.markdown("<meta name='viewport' content='width=device-width, initial-scale=1'>", unsafe_allow_html=True)
+
+# Custom CSS for styling and responsiveness
 st.markdown("""
     <style>
     .main {
         background-color: #f0f2f6;
     }
+
     h1 {
         text-align: center;
         color: #e63946;
         font-family: 'Comic Sans MS', cursive;
     }
+
     .stSelectbox label, .stButton button {
         font-size: 18px;
     }
+
     .anime-card {
         background-color: white;
         padding: 15px;
         border-radius: 15px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         margin-bottom: 25px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 15px;
     }
+
+    .anime-card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .anime-card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .anime-card img {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .stSelectbox label, .stButton button {
+            font-size: 16px;
+        }
+
+        h1 {
+            font-size: 26px;
+        }
+    }
+
     .footer {
         position: fixed;
         right: 10px;
@@ -104,7 +142,7 @@ if st.button("✨ Recommend"):
                 cols = st.columns([1, 2])
                 with cols[0]:
                     if info["image"]:
-                        st.image(info["image"], width=150)
+                        st.image(info["image"], use_column_width=True)
                 with cols[1]:
                     st.markdown(f"#### {info['title']}")
                     st.write(info["synopsis"])
@@ -116,5 +154,3 @@ st.markdown("""
         🇮🇳 Made by Meet ❤️ Love for Anime
     </div>
 """, unsafe_allow_html=True)
-
-
